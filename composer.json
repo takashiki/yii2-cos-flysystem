@@ -1,0 +1,30 @@
+{
+    "name": "takashiki/yii2-cos-flysystem",
+    "keywords": ["yii", "cos", "flysystem"],
+    "description": "Yii2 Cos Flysystem",
+    "homepage": "https://github.com/takashiki/yii2-cos-flysystem",
+    "license": "MIT",
+    "minimum-stability":"stable",
+    "authors": [
+        {
+            "name": "takashiki",
+            "email": "857995137@qq.com",
+            "homepage": "https://github.com/takashiki",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"takashiki\\yii2\\flysystem\\": "src"}
+    },
+    "require": {
+        "creocoder/yii2-flysystem": "^0.8.1",
+        "freyo/flysystem-qcloud-cos-v3": "^2.1",
+        "freyo/flysystem-qcloud-cos-v4": "^1.1"
+    },
+    "extra": {
+        "asset-installer-paths": {
+            "npm-asset-library": "vendor/npm",
+            "bower-asset-library": "vendor/bower"
+        }
+    }
+}
