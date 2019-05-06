@@ -3,6 +3,7 @@
 namespace takashiki\yii2\flysystem;
 
 use creocoder\flysystem\Filesystem;
+use Qcloud\Cos\Client;
 use yii\base\InvalidConfigException;
 
 class CosFilesystem extends Filesystem
@@ -10,17 +11,17 @@ class CosFilesystem extends Filesystem
     /**
      * @var string
      */
-    public $version = 'v4';
+    public $version = 'v5';
 
     /**
      * @var string
      */
-    public $protocol = 'http';
+    public $protocol = 'https';
 
     /**
-     * @var string only work for cos-v4
+     * @var string v5:ap-shanghai / v4:sh / v3:empty
      */
-    public $region = 'sh';
+    public $region = 'ap-shanghai';
 
     /**
      * @var string
@@ -53,7 +54,22 @@ class CosFilesystem extends Filesystem
     public $timeout = 60;
 
     /**
-     * @var array
+     * @var string
+     */
+    public $cdn_key = '';
+
+    /**
+     * @var bool
+     */
+    public $read_from_cdn;
+
+    /**
+     * @var bool
+     */
+    public $encrypt;
+
+    /**
+     * @var bool
      */
     public $debug = YII_DEBUG;
 
@@ -86,10 +102,14 @@ class CosFilesystem extends Filesystem
     }
 
     /**
-     * @return \Freyo\Flysystem\QcloudCOSv3\Adapter|\Freyo\Flysystem\QcloudCOSv4\Adapter
+     * @return Freyo\Flysystem\QcloudCOSv3\Adapter|Freyo\Flysystem\QcloudCOSv4\Adapter|Freyo\Flysystem\QcloudCOSv5\Adapter
      */
     protected function prepareAdapter()
     {
+        if ($this->version === 'v5') {
+            return $this->prepareAdapterV5();
+        }
+
         $config = [
             'protocol' => $this->protocol,
             'domain' => $this->domain,
@@ -101,12 +121,36 @@ class CosFilesystem extends Filesystem
             'debug' => $this->debug,
         ];
 
-        $adaptorClass = \Freyo\Flysystem\QcloudCOSv3\Adapter::class;
+        $adaptorClass = Freyo\Flysystem\QcloudCOSv3\Adapter::class;
         if ($this->version === 'v4') {
             $config['region'] = $this->region;
-            $adaptorClass = \Freyo\Flysystem\QcloudCOSv4\Adapter::class;
+            $adaptorClass = Freyo\Flysystem\QcloudCOSv4\Adapter::class;
         }
 
         return new $adaptorClass($config);
+    }
+
+    protected function prepareAdapterV5()
+    {
+        $config = [
+            'region' => $this->region,
+            'credentials' => [
+                'appId' => $this->app_id,
+                'secretId' => $this->secret_id,
+                'secretKey' => $this->secret_key,
+            ],
+            'timeout' => $this->timeout,
+            'connect_timeout' => $this->timeout,
+            'bucket' => $this->bucket,
+            'cdn' => $this->domain,
+            'scheme' => $this->protocol,
+            'read_from_cdn' => $this->read_from_cdn,
+            'cdn_key' => $this->cdn_key,
+            'encrypt' => $this->encrypt,
+        ];
+
+        $client = new Client($config);
+
+        return new Freyo\Flysystem\QcloudCOSv5\Adapter($client, $config);
     }
 }

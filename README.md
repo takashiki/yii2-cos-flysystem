@@ -1,6 +1,6 @@
 # yii2-cos-flysystem
 
-Yii2 tencent-cos(v3/v4) flysystem 
+Yii2 tencent-cos(v3/v4/v5) flysystem 
 
 ## Install
 
@@ -20,10 +20,14 @@ composer require takashiki/yii2-cos-flysystem
     'domain' => 'xxx.file.myqcloud.com',
     
     // not necessarily bellow 
-    'version' => 'v4',
-    'protocol' => 'http',
-    'region' => 'sh',
+    'version' => 'v5',
+    'protocol' => 'https',
+    'region' => 'ap-shanghai',
     'timeout' => 60,
+    'cdn' => '',
+    'cdn_key' => '',
+    'read_from_cdn' => false,
+    'encrypt' => false
 ],
 ```
 
