@@ -121,10 +121,10 @@ class CosFilesystem extends Filesystem
             'debug' => $this->debug,
         ];
 
-        $adaptorClass = Freyo\Flysystem\QcloudCOSv3\Adapter::class;
+        $adaptorClass = \Freyo\Flysystem\QcloudCOSv3\Adapter::class;
         if ($this->version === 'v4') {
             $config['region'] = $this->region;
-            $adaptorClass = Freyo\Flysystem\QcloudCOSv4\Adapter::class;
+            $adaptorClass = \Freyo\Flysystem\QcloudCOSv4\Adapter::class;
         }
 
         return new $adaptorClass($config);
@@ -151,6 +151,6 @@ class CosFilesystem extends Filesystem
 
         $client = new Client($config);
 
-        return new Freyo\Flysystem\QcloudCOSv5\Adapter($client, $config);
+        return new \Freyo\Flysystem\QcloudCOSv5\Adapter($client, $config);
     }
 }

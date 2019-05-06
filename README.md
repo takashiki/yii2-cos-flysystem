@@ -24,7 +24,6 @@ composer require takashiki/yii2-cos-flysystem
     'protocol' => 'https',
     'region' => 'ap-shanghai',
     'timeout' => 60,
-    'cdn' => '',
     'cdn_key' => '',
     'read_from_cdn' => false,
     'encrypt' => false
