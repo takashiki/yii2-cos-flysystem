@@ -19,13 +19,7 @@
     "require": {
         "creocoder/yii2-flysystem": "^0.8.1",
         "freyo/flysystem-qcloud-cos-v3": "^2.1",
-        "freyo/flysystem-qcloud-cos-v4": "^1.1",
-        "freyo/flysystem-qcloud-cos-v5": "^1.4"
-    },
-    "extra": {
-        "asset-installer-paths": {
-            "npm-asset-library": "vendor/npm",
-            "bower-asset-library": "vendor/bower"
-        }
+        "freyo/flysystem-qcloud-cos-v4": "^2.0",
+        "freyo/flysystem-qcloud-cos-v5": "^2.0"
     }
 }
