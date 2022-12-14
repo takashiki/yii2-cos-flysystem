@@ -17,7 +17,7 @@
         "psr-4": {"takashiki\\yii2\\flysystem\\": "src"}
     },
     "require": {
-        "creocoder/yii2-flysystem": "^0.8.1",
+        "creocoder/yii2-flysystem": "^0.9",
         "freyo/flysystem-qcloud-cos-v3": "^2.1",
         "freyo/flysystem-qcloud-cos-v4": "^2.0",
         "freyo/flysystem-qcloud-cos-v5": "^2.0"
